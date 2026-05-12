@@ -1,35 +1,14 @@
-# ============================================================
-# codemagic.yaml — Cosmo Calculator
-# iOS release build with automatic code signing via Codemagic
-# ============================================================
-
 workflows:
   ios-workflow:
     name: iOS Workflow
-    max_build_duration: 60
 
     environment:
       flutter: stable
       xcode: latest
-      cocoapods: default
-      # Codemagic manages signing automatically once you connect
-      # your Apple Developer account in the Codemagic dashboard.
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.cosmo.cosmoLeakTester
 
     scripts:
-      - name: Flutter pub get
-        script: flutter pub get
-
-      - name: Pod install
-        script: |
-          cd ios && pod install && cd ..
-
-      - name: Build IPA
-        script: |
-          flutter build ipa --release
+      - flutter pub get
+      - flutter build ipa --release --no-codesign
 
     artifacts:
       - build/ios/ipa/*.ipa
-
