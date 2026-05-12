@@ -16,7 +16,7 @@ class CosmoAppBarLogo extends StatelessWidget {
       width:  size,
       height: size,
       child: Image.asset(
-        'assets/images/cosmo_logo.png',
+        'assets/images/cosmo_logo.jpeg',
         width:  size,
         height: size,
         fit:    BoxFit.contain,
