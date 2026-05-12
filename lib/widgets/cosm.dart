@@ -1,31 +1,37 @@
 // widgets/cosmo_logo.dart
 // CosmoAppBarLogo — shows assets/images/cosmo_logo.png
-// Falls back to painted version if PNG not placed yet.
-// No ClipRRect — no white box artefact.
+// Uses a wide rectangular container to preserve the horizontal logo's text.
+// Falls back to painted version if 
+// not placed yet.
 
 import 'dart:math';
 import 'package:flutter/material.dart';
 
 class CosmoAppBarLogo extends StatelessWidget {
-  final double size;
-  const CosmoAppBarLogo({super.key, this.size = 48});
+  /// [height] controls how tall the logo box is.
+  /// Width is automatically 2.8× height to suit the horizontal "COSMO" wordmark.
+  final double height;
+
+  const CosmoAppBarLogo({super.key, this.height = 36});
 
   @override
   Widget build(BuildContext context) {
+    final width = height * 2.8;          // wide enough for the text in the logo
     return SizedBox(
-      width:  size,
-      height: size,
+      width:  width,
+      height: height,
       child: Image.asset(
-        'assets/images/cosmo_logo.png',
-        width:  size,
-        height: size,
+        'assets/images/cosmo_logo.jpeg',
+        width:  width,
+        height: height,
         fit:    BoxFit.contain,
-        errorBuilder: (_, __, ___) => CosmoLogoPainted(size: size),
+        errorBuilder: (_, __, ___) => CosmoLogoPainted(size: height),
       ),
     );
   }
 }
 
+// ── Fallback painted logo (square, used only when PNG is missing) ─────────────
 class CosmoLogoPainted extends StatelessWidget {
   final double size;
   const CosmoLogoPainted({super.key, this.size = 48});

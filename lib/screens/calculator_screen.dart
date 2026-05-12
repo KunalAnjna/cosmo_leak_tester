@@ -70,7 +70,7 @@ class _CalculatorScreenState extends State<CalculatorScreen>
                 child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
 
                   // Logo sits directly on white — no pill needed, merges naturally
-                  CosmoAppBarLogo(height: 47),
+                  const CosmoAppBarLogo(size: 47),
 
                   const SizedBox(width: 22),
                   Expanded(
