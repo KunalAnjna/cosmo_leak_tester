@@ -109,5 +109,45 @@ const List<MachineModel> kMachineModels = [
     displayName: 'AF_R220',
     source: ManualSource.asset,
     assetPath: 'assets/manuals/AF_R220.pdf',
+  ),
+
+
+
+  MachineModel(
+    id: 'MV_6000B',
+    displayName: 'MV_6000B',
+    source: ManualSource.asset,
+    assetPath: 'assets/manuals/MV_6000B.pdf',
+  ),
+  MachineModel(
+    id: 'LS_1822A',
+    displayName: 'LS_1822A',
+    source: ManualSource.asset,
+    assetPath: 'assets/manuals/LS_1822A.pdf',
+  ),
+  MachineModel(
+    id: 'DP_340B',
+    displayName: 'DP_340B',
+    source: ManualSource.asset,
+    assetPath: 'assets/manuals/DP_340B.pdf',
+  ),
+  MachineModel(
+    id: 'DF_2820',
+    displayName: 'DF_2820',
+    source: ManualSource.asset,
+    assetPath: 'assets/manuals/DF_2820.pdf',
+  ),
+  MachineModel(
+    id: 'DF__240BA',
+    displayName: 'DF__240BA',
+    source: ManualSource.asset,
+    assetPath: 'assets/manuals/DF__240BA.pdf',
+  ),
+  MachineModel(
+    id: 'DF__231BA',
+    displayName: 'DF__231BA',
+    source: ManualSource.asset,
+    assetPath: 'assets/manuals/DF__231BA.pdf',
   )
+
 ];

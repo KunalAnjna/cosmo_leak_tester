@@ -125,15 +125,16 @@ class _ManualScreenState extends State<ManualScreen> {
             const CosmoAppBarLogo(size: 46),
             const SizedBox(width: 14),
             Expanded(
+              
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text('Machine Manuals',
+                  const Text('Manuals',
                       style: TextStyle(color: AppTheme.darkBlue, fontSize: 18,
                           fontWeight: FontWeight.w800),
                       overflow: TextOverflow.ellipsis, maxLines: 1),
-                  Text('Select a model to view its manual',
+                  Text('Error and Troubleshooting',
                       style: TextStyle(color: AppTheme.primaryBlue.withOpacity(0.75),
                           fontSize: 10, fontWeight: FontWeight.w500),
                       overflow: TextOverflow.ellipsis, maxLines: 1),
@@ -176,13 +177,13 @@ class _ManualScreenState extends State<ManualScreen> {
           Icon(Icons.precision_manufacturing_outlined,
               size: 18, color: AppTheme.primaryBlue),
           SizedBox(width: 8),
-          Text('Machine Model', style: TextStyle(fontSize: 14,
+          Text('Model', style: TextStyle(fontSize: 14,
               fontWeight: FontWeight.w700, color: AppTheme.textDark)),
         ]),
         const SizedBox(height: 12),
         DropdownButtonFormField<MachineModel>(
           value: _selectedModel,
-          hint: const Text('Select a machine model...',
+          hint: const Text('Select a model...',
               style: TextStyle(color: AppTheme.textHint, fontSize: 14)),
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(
