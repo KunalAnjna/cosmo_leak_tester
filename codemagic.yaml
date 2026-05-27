@@ -38,19 +38,14 @@ workflows:
         script: |
           flutter build ios --release --no-codesign
           
-          # IPA properly banao
-          cd build/ios/iphoneos
           mkdir -p Payload
-          cp -r Runner.app Payload/Runner.app
+          cp -r build/ios/iphoneos/Runner.app Payload/Runner.app
           
-          # Symlinks ke saath zip karo (zaroori hai iOS ke liye)
-          zip -r9 --symlinks cosmo_leak_tester.ipa Payload/
+          # Mac ka ditto command - symlinks sahi rehte hain
+          ditto -c -k --sequesterRsrc --keepParent Payload cosmo_leak_tester.ipa
+          cp cosmo_leak_tester.ipa build/ios/cosmo_leak_tester.ipa
           
-          # Root build folder mein bhi copy karo
-          cp cosmo_leak_tester.ipa ../../../cosmo_leak_tester.ipa
-          
-          echo "✅ IPA created successfully!"
+          echo "✅ IPA created!"
 
     artifacts:
       - build/ios/cosmo_leak_tester.ipa
-      - build/ios/iphoneos/cosmo_leak_tester.ipa
