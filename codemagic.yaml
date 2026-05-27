@@ -12,26 +12,26 @@ workflows:
       - name: Flutter version check
         script: flutter --version
 
-      - name: Get dependencies
+      - name: Get Flutter dependencies
         script: flutter pub get
+
+      - name: Generate iOS Flutter files
+        script: |
+          flutter precache --ios
+          cd ios
+          flutter pub get
+          cd ..
 
       - name: Set iOS deployment target
         script: |
           if [ -f ios/Podfile ]; then
             sed -i '' "s/# platform :ios, '12.0'/platform :ios, '13.0'/" ios/Podfile || true
-            sed -i '' "s/platform :ios, '12.0'/platform :ios, '13.0'/" ios/Podfile || true
           fi
-
-      - name: Flutter iOS generate files
-        script: |
-          flutter precache --ios
 
       - name: Install CocoaPods
         script: |
-          sudo gem install cocoapods || true
           cd ios
-          pod repo update --verbose
-          pod install --repo-update --verbose
+          pod install --repo-update
           cd ..
 
       - name: Build unsigned IPA
