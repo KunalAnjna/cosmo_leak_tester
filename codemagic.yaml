@@ -2,13 +2,11 @@ workflows:
   ios-sideloadly:
     name: iOS Build for Sideloadly (No Developer Account)
     max_build_duration: 60
-    instance_type: mac_mini_m2  # Codemagic ka Mac use karega, tera koi Mac nahi chahiye
+    instance_type: mac_mini_m2
 
     environment:
       flutter: stable
       xcode: latest
-      # Koi certificate ya provisioning profile ki zaroorat NAHI hai
-      # Kyunki hum --no-codesign use kar rahe hain
 
     scripts:
       - name: Flutter version check
@@ -17,29 +15,29 @@ workflows:
       - name: Get dependencies
         script: flutter pub get
 
-      - name: Set iOS deployment target (min iOS 12)
+      - name: Set iOS deployment target
         script: |
-          # Podfile mein iOS version set karo agar Podfile ho
           if [ -f ios/Podfile ]; then
             sed -i '' "s/# platform :ios, '12.0'/platform :ios, '13.0'/" ios/Podfile || true
+            sed -i '' "s/platform :ios, '12.0'/platform :ios, '13.0'/" ios/Podfile || true
           fi
+
+      - name: Install CocoaPods dependencies
+        script: |
+          cd ios
+          pod repo update
+          pod install
+          cd ..
 
       - name: Build unsigned IPA (for Sideloadly)
         script: |
           flutter build ios --release --no-codesign
-          # Unsigned .app ko manually IPA mein pack karo
           cd build/ios/iphoneos
           mkdir -p Payload
           cp -r Runner.app Payload/
           zip -r ../../../cosmo_leak_tester.ipa Payload/
-          echo "✅ IPA created successfully at build/ios/cosmo_leak_tester.ipa"
+          echo "✅ IPA created successfully!"
 
     artifacts:
-      - build/ios/cosmo_leak_tester.ipa   # Yeh Sideloadly mein directly use karo
-      - build/ios/iphoneos/Runner.app      # Backup .app folder
-
-    # Build complete hone pe email notification (optional)
-    # publishing:
-    #   email:
-    #     recipients:
-    #       - your@email.com
+      - build/ios/cosmo_leak_tester.ipa
+      - build/ios/iphoneos/Runner.app
