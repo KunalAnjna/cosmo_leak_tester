@@ -37,12 +37,20 @@ workflows:
       - name: Build unsigned IPA
         script: |
           flutter build ios --release --no-codesign
+          
+          # IPA properly banao
           cd build/ios/iphoneos
           mkdir -p Payload
-          cp -r Runner.app Payload/
-          zip -r ../../../cosmo_leak_tester.ipa Payload/
+          cp -r Runner.app Payload/Runner.app
+          
+          # Symlinks ke saath zip karo (zaroori hai iOS ke liye)
+          zip -r9 --symlinks cosmo_leak_tester.ipa Payload/
+          
+          # Root build folder mein bhi copy karo
+          cp cosmo_leak_tester.ipa ../../../cosmo_leak_tester.ipa
+          
           echo "✅ IPA created successfully!"
 
     artifacts:
       - build/ios/cosmo_leak_tester.ipa
-      - build/ios/iphoneos/Runner.app
+      - build/ios/iphoneos/cosmo_leak_tester.ipa
